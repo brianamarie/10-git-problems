@@ -5,7 +5,7 @@ Popular shoutouts to:
 - Michael Kohn "10 Common Git Problems and How to Fix Them"
 
 ### Getting Started
-You can view the slides at https://brianamarie.github.io/10-git-problems/#1. 
+You can view the slides at https://brianamarie.github.io/10-git-problems/#1.
 
 To practice each exercise, `cd` into the corresponding directory. Get started with `. script.sh`, and follow the instructions in the `README.md` of that subdirectory or on the slides.
 

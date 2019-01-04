@@ -28,8 +28,7 @@
 ### 4
 
 - [x] scripts written
-- [x] TODO: Currently running the bisect, you need to do it in the root directory. The test is checking the directories/files in that directory, but we want it to test ones that are in the 04- nested directory.
-- [ ] tested in general
+- [x] tested in general
 - [ ] README proofed
 - [ ] tutorial
 
@@ -50,27 +49,27 @@
 ### 7
 
 - [x] scripts written
-- [ ] tested in general 
+- [x] tested in general
 - [ ] README proofed
 - [ ] tutorial
 
 ### 8
 
 - [x] scripts written
-- [ ] tested in general
+- [x] tested in general
 - [ ] README proofed
 - [ ] tutorial
 
 ### 9
 
 - [x] scripts written
-- [ ] tested in general
+- [x] tested in general
 - [ ] README proofed
 - [ ] tutorial
 
 ### 10
 
-- [ ] scripts written (in progress)
-- [ ] tested in general
+- [x] scripts written (in progress)
+- [x] tested in general
 - [ ] README proofed
 - [ ] tutorial
