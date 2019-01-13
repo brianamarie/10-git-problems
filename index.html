@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>10 Git Problems</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style type="text/css">
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+# 10 Git Problems
+
+Git Merge 2019
+
+Briana Swift
+
+@brianamarie
+
+???
+
+Notes for the _first_ slide!
+
+---
+
+## https://github.com/brianamarie/10-git-problems
+
+---
+
+# 10 Git Problems
+
+1. Commit is too big
+2. Accidental commit to `master`
+3. I'm in a detached head state
+4. What broke my code?
+5. I want to merge two repositories
+6. I want to undo a recursive merge (without GitHub)
+7. Forget a binary file
+8. How do I remove a submodule?
+9. I want to undo a rebase
+10. How do I force git pull to overwrite local files?
+
+---
+
+### 1. Commit is too big
+
+How can I commit only part of a file in Git? (Or, revise commits where I committed too much?)
+
+1. Run `. setup.sh`
+
+Look at the files and history that's been created. You'll see that several files and a history have been created. We want to change the history so the commits are more logical.
+
+First, we need to move those changes back into the working directory so we can re-stage and re-commit.
+
+2. `git reset reset-here` to a certain commit, bringing the changes that should be broken up into the working directory.
+3. Use `git add -p` to be specific about how commits are formed. You can use `s` to split even further.
+4. When you're done with the activity, run `. reset.sh`.
+
+???
+
+1: 01-committed-too-bit
+
+---
+
+### 2. Accidental Commit to `master`
+
+I committed to master instead of a branch!
+
+This will use `git reset`, so you should first check that:
+- The commits in question are _only local_.
+- There are no unintended files in your working or staging directory.
+
+#### Getting started
+1. Run `. setup.sh`.
+  - This sets a local alias, `git lol`. Use `git lol` and `git status` to see the current state of your repository.
+2. Use `git reset` back to the last commit that was meant to be on master.
+  - Normally, you could use `git reset origin/master`. For today, use the `reset-here` tag: `git reset reset-here`.
+  - Use `git lol` and `git status` again.
+3. Create a new branch and checkout to it with `git checkout -b experiment`. (Your working and staging area will come with you!)
+4. Stage your changes, and make a commit.
+  - :tada: Yay, the commit is now where it should be!
+5. Once you're finished, run `. reset.sh`.
+
+???
+
+2: 02-accidental-commit-to-master
+
+---
+
+### 3. I'm in a detached head state
+
+1. Run `. setup.sh`
+
+A detached head state only means that your `HEAD` pointer is currently pointed _not_ to a branch.
+
+2. You can see this by typing `git lol` (an alias was set in the setup script)
+
+To fix this, to get your `HEAD` attached, you need to point to a branch. You can do this by checking out to an existing branch, or creating a new branch where you are.
+
+3. Let's create a new branch where we are with `git checkout -b more-work`
+
+Now, you're no longer in a detached head state. You can continue working normally on your new branch.
+
+4. Reset the activity with `. reset.sh`
+
+
+???
+
+3: 03-detached-head
+
+---
+
+### 4. What broke my code?
+
+Something's been broken, but I don't know what commit broke it.
+
+1. `. test.sh`
+1. `. setup.sh`
+1. `. test.sh` to find something's broken
+1. Before you can use bisect, you need to be in the root directory of the repository. `cd ..`
+1. `. 04-what-broke-this/test.sh`
+1. `git bisect start`
+1. `git bisect bad HEAD`
+1. `git bisect good before-activity4`
+1. `. 04-what-broke-this/test.sh`
+1. `git bisect good` or `git bisect good`, depending on the results of the test
+1. Continue until it finds the commit
+1. `git bisect reset`
+1. `. 04-what-broke-this/reset.sh`
+
+???
+
+4: 04-what-broke-this
+
+---
+
+### 5. I want to merge two repositories
+
+1. Run the setup script: `. setup.sh`
+1. Add the other repository as a second remote: `git remote add other-repo https://github.com/brianamarie/another-repository.git`
+1. Before you try to merge, make sure you have all of the remote tracking branches for all remotes: `git fetch --all`
+1. Try to merge the two repositories: `git merge other-repo/master` and notice the error message.
+1. Since these two repositories have unrelated histories, we need to specify a particular type of merge: `git merge other-repo/master --allow-unrelated-histories`.
+
+In practice, we would probably want to create a new repository to have the combined histories of both of the other repositories. Then, it would be best to archive the singular repositories.
+
+1. You can see the combined history with the log: `git log --oneline --decorate --graph --all`
+
+???
+
+5: 05-merge-two-repos
+
+---
+
+### 6. I want to undo a recursive merge (without GitHub)
+
+1. Run `script.sh`
+2. Look at the log, and take lineage of commits' parents into account: `git log --oneline --decorate --graph --all`
+3. Identify which branch is the "parent" branch of the merge. (The branch you were on when you merged is the parent, so we will refer to it as "1".)
+4. Identify the merge commit.
+5. Revert the merge commit: `git revert -m <parent> <commit>`.
+  - ex: `git revert -m 1 cd4370f`
+
+???
+
+6: 06-revert-merge
+
+---
+
+### 7. Forget a binary file
+
+I committed a binary file a long time ago, how to make git forget about a file that was tracked but is now in .gitignore?
+
+???
+
+7: 07-forget-binary
+
+---
+
+### 8. How do I remove a submodule?
+
+???
+
+8: 08-remove-submodule
+
+---
+
+### 9. I want to undo a rebase
+
+???
+
+9: 09-undo-rebase
+
+---
+
+### 10. How do I force git pull to overwrite local files?
+
+???
+
+10: 10-force-pull
+
+
+    </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js" type="text/javascript">
+    </script>
+    <script type="text/javascript">
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>
