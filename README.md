@@ -1,3 +1,5 @@
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 ## 10 Sticky Git Situations and how to get out of them
 
 Popular shoutouts to:
